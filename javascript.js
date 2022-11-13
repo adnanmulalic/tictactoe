@@ -2,7 +2,7 @@ const board = document.querySelector("#board");
 const boardTiles = document.querySelectorAll(".boardTile");
 
 const gameBoard = (() => {
-    const gameBoardArray = ["2", "8"];
+    const gameBoardArray = [];
     const displayMoves = () => {
         for (let i = 0; i < gameBoardArray.length; i++) {
             for (let j = 0; j < boardTiles.length; j++) {
@@ -19,6 +19,12 @@ const gameBoard = (() => {
     };
 })();
 
+
+boardTiles.forEach(boardTile => {
+    boardTile.addEventListener("click", () => {
+        gameBoard.gameBoardArray.push(boardTile.id);
+    })
+});
 
 
 const Players = (name) => {
