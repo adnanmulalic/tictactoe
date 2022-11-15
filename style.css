@@ -11,7 +11,7 @@ h1 {
     border-bottom: 2px solid black;
 }
 
-#Board {
+#board {
     display: grid;
     grid-template-columns: repeat(3, 120px);
     grid-template-rows: repeat(3, 120px);
@@ -29,17 +29,26 @@ h1 {
 
 #restartButton {
     background-color: aliceblue;
-    margin: 1rem 50%;
+    margin: 1rem;
     border-radius: 5px;
     border: 1px solid black;
     font-size: 2rem;
+    height: 75px;
+    width: 150px;
 }
 
 #restartButton:active {
     background-color: rgb(114, 158, 173)
 }
 #container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+.players {
+    grid-column: 2 / 3;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
 }
