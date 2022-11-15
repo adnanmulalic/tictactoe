@@ -8,7 +8,7 @@ const gameBoard = (() => {
         for (let i = 0; i < gameBoardArray.length; i++) {  // loop through gameboard
             let currentMove = gameBoardArray[i];  // assing current move
             for (let j = 0; j < boardTiles.length; j++) {  // loop through boardtiles
-                if (gameBoardArray[i] === boardTiles[j].id) { // first I compare move from array with boardtile number, so that the proper tile get changed
+                if (gameBoardArray[i] === boardTiles[j].id) { // first I compare move from array with boardtile number, so that the proper tile gets changed
                     if (gameBoardArray.indexOf(currentMove) % 2 === 0) { // check if it is x or o move with the help of indexOf (x always starts first)
                         boardTiles[j].innerHTML = "X";  // mark the tile with X 
                     } else {
@@ -42,7 +42,7 @@ boardTiles.forEach(boardTile => {
 });
 
 
-const Players = (name) => {
-
-}
+const players = (name, moves) => {
+    return {name, moves: [moves]};
+};
 
