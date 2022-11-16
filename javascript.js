@@ -1,6 +1,16 @@
 const board = document.querySelector("#board");
 const boardTiles = document.querySelectorAll(".boardTile");
 const restartButton = document.querySelector("#restartButton");
+const playerOneInput = document.querySelector("#playerOne");
+const playerTwoInput = document.querySelector("#playerTwo");
+const playerInputs = document.querySelectorAll("div > input");
+
+let playerOne = "";
+let playerTwo = "";
+
+const players = (name, moves) => {
+    return {name, moves: []};
+};
 
 const gameBoard = (() => {
     const gameBoardArray = [];
@@ -24,6 +34,27 @@ const gameBoard = (() => {
     };
 })();
 
+const calculateMoves = (() => {
+    for (let i = 0; i < gameBoard.gameBoardArray.length; i++) {
+        if (i % 2 === 0 && playerOne.moves[i] != gameBoard.gameBoardArray[i]) {
+            playerOne.moves.push(gameBoard.gameBoardArray[i]); 
+        } if (i % 2 != 0 && playerTwo.moves[i] != gameBoard.gameBoardArray[i]) {
+            playerTwo.moves.push(gameBoard.gameBoardArray[i]); 
+        }
+    }
+});
+
+playerInputs.forEach(playerInput => {
+    playerInput.addEventListener("keyup", () => {
+        gameBoard.gameBoardArray.length = 0; // if user changes player names, reset board and empty gameBoardArray
+        boardTiles.forEach(boardTile => {
+            boardTile.innerHTML = "";
+        })
+        playerOne = players(playerOneInput.value); // create player object with name and empty array for moves
+        playerTwo = players(playerTwoInput.value);
+    })
+});
+
 
 restartButton.addEventListener("click", () => {
     gameBoard.gameBoardArray.length = 0;
@@ -37,12 +68,9 @@ boardTiles.forEach(boardTile => {
         if (boardTile.innerHTML === "" && gameBoard.gameBoardArray.length < 9) { // if tile is not empty and gameboard array isnt full of moves (9)
             gameBoard.gameBoardArray.push(boardTile.id); // push the tile that user clicked into gameBoardArray
             gameBoard.displayMoves(); // call displayMove function from gameBoard module
+            calculateMoves();
         }
     })
 });
 
-
-const players = (name, moves) => {
-    return {name, moves: [moves]};
-};
 
