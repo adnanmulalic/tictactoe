@@ -7,6 +7,7 @@ const playerInputs = document.querySelectorAll("div > input");
 
 let playerOne = "";
 let playerTwo = "";
+let i = 0;
 
 const players = (name, moves) => {
     return {name, moves: []};
@@ -35,13 +36,15 @@ const gameBoard = (() => {
 })();
 
 const calculateMoves = (() => {
-    for (let i = 0; i < gameBoard.gameBoardArray.length; i++) {
-        if (i % 2 === 0 && playerOne.moves[i] != gameBoard.gameBoardArray[i]) {
-            playerOne.moves.push(gameBoard.gameBoardArray[i]); 
-        } if (i % 2 != 0 && playerTwo.moves[i] != gameBoard.gameBoardArray[i]) {
-            playerTwo.moves.push(gameBoard.gameBoardArray[i]); 
+    const winningMoves = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]];
+    winningMoves.forEach(winningMove => {
+        for (let i = 0; i < winningMove.length; i++) {
+            if (winningMove[i] === playerOne.moves[i] || winningMove[i] === playerTwo.moves[i]) {
+                console.log("win", winningMove)
+            }
+            
         }
-    }
+    });
 });
 
 playerInputs.forEach(playerInput => {
@@ -68,6 +71,11 @@ boardTiles.forEach(boardTile => {
         if (boardTile.innerHTML === "" && gameBoard.gameBoardArray.length < 9) { // if tile is not empty and gameboard array isnt full of moves (9)
             gameBoard.gameBoardArray.push(boardTile.id); // push the tile that user clicked into gameBoardArray
             gameBoard.displayMoves(); // call displayMove function from gameBoard module
+            if (boardTile.innerHTML === "X") {
+                playerOne.moves.push(boardTile.id); 
+            } else {
+                playerTwo.moves.push(boardTile.id); 
+            }
             calculateMoves();
         }
     })
