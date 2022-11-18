@@ -35,12 +35,12 @@ const gameBoard = (() => {
     };
 })();
 
+const winningMoves = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]];
 const calculateMoves = (() => {
-    const winningMoves = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]];
     winningMoves.forEach(winningMove => {
         for (let i = 0; i < winningMove.length; i++) {
-            if (winningMove[i] === playerOne.moves[i] || winningMove[i] === playerTwo.moves[i]) {
-                console.log("win", winningMove)
+            if (winningMove === playerOne.moves.slice(0,3) || winningMove[i] === playerTwo.moves[i]) {
+                console.log("win", winningMove) // use sort tomorrow and delete this
             }
             
         }
