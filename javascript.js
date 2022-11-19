@@ -35,12 +35,15 @@ const gameBoard = (() => {
     };
 })();
 
+const currentSelection = [];
 const winningMoves = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]];
 const calculateMoves = (() => {
     winningMoves.forEach(winningMove => {
         for (let i = 0; i < winningMove.length; i++) {
-            if (winningMove === playerOne.moves.slice(0,3) || winningMove[i] === playerTwo.moves[i]) {
-                console.log("win", winningMove) // use sort tomorrow and delete this
+            if (winningMove[i].toString() === playerOne.moves[i]) {
+                currentSelection.push(winningMove[i]);
+                console.log("win", winningMove) // moar needed
+                break;
             }
             
         }
@@ -64,7 +67,9 @@ restartButton.addEventListener("click", () => {
     boardTiles.forEach(boardTile => {
         boardTile.innerHTML = "";
     })
-})
+    playerOne = players(playerOneInput.value); // create player object with name and empty array for moves
+    playerTwo = players(playerTwoInput.value);
+});
 
 boardTiles.forEach(boardTile => {
     boardTile.addEventListener("click", () => { // event listener to track on which tile user clicks
@@ -76,7 +81,7 @@ boardTiles.forEach(boardTile => {
             } else {
                 playerTwo.moves.push(boardTile.id); 
             }
-            calculateMoves();
+            //calculateMoves();
         }
     })
 });
