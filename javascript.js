@@ -40,10 +40,13 @@ const winningMoves = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3,
 const calculateMoves = (() => {
     winningMoves.forEach(winningMove => {
         for (let i = 0; i < winningMove.length; i++) {
-            if (winningMove[i].toString() === playerOne.moves[i]) {
-                currentSelection.push(winningMove[i]);
-                console.log("win", winningMove) // moar needed
-                break;
+            if (winningMove[i].toString() === playerOne.moves.sort()[i] && currentSelection.length <= 3) {
+                currentSelection.push(playerOne.moves[i]);
+                if (currentSelection.length === 3 && currentSelection === winningMove.toString()) {
+                    console.log("win", winningMove, currentSelection) // moar needed
+                } else {
+                    currentSelection.length = 0;
+                }
             }
             
         }
