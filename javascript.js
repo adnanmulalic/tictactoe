@@ -5,8 +5,8 @@ const playerOneInput = document.querySelector("#playerOne");
 const playerTwoInput = document.querySelector("#playerTwo");
 const playerInputs = document.querySelectorAll("div > input");
 
-let playerOne = "";
-let playerTwo = "";
+let playerOne = ""
+let playerTwo = ""
 let i = 0;
 
 const players = (name, moves) => {
@@ -35,17 +35,18 @@ const gameBoard = (() => {
     };
 })();
 
-const currentSelection = [];
-const winningMoves = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]];
+let currentSelection = "";
+const winningMoves = ["123", "456", "789", "147", "258", "369", "159", "357"];
 const calculateMoves = (() => {
-    winningMoves.forEach(winningMove => {
-        for (let i = 0; i < winningMove.length; i++) {
-            if (winningMove[i].toString() === playerOne.moves.sort()[i] && currentSelection.length <= 3) {
-                currentSelection.push(playerOne.moves[i]);
-                if (currentSelection.length === 3 && currentSelection === winningMove.toString()) {
+    winningMoves.forEach((winningMove) => {
+        if (playerOne.moves.length === 3) {
+            
+        }
+        for (let i = 0; i < 3; i++) {
+            if (playerOne.moves.length === 3 && winningMove[i] === playerOne.moves.sort().toString()[i]) {
+                currentSelection += winningMove[i];
+                if (currentSelection.length === 3 && currentSelection === winningMove) {
                     console.log("win", winningMove, currentSelection) // moar needed
-                } else {
-                    currentSelection.length = 0;
                 }
             }
             
