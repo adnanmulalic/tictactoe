@@ -39,17 +39,14 @@ let currentSelection = "";
 const winningMoves = ["123", "456", "789", "147", "258", "369", "159", "357"];
 const calculateMoves = (() => {
     winningMoves.forEach((winningMove) => {
-        if (playerOne.moves.length === 3) {
-            
-        }
-        for (let i = 0; i < 3; i++) {
-            if (playerOne.moves.length === 3 && winningMove[i] === playerOne.moves.sort().toString()[i]) {
+        for (let i = 0; i < playerOne.moves.length; i++) {
+            if (winningMove[i] === playerOne.moves.sort().toString().replaceAll(",","")[i] && currentSelection.length < 3) {
                 currentSelection += winningMove[i];
-                if (currentSelection.length === 3 && currentSelection === winningMove) {
-                    console.log("win", winningMove, currentSelection) // moar needed
-                }
+                console.log(currentSelection.split("").sort().toString());
+            } 
+            if (currentSelection.length === 3) {
+                console.log("win") // moar needed
             }
-            
         }
     });
 });
