@@ -78,9 +78,21 @@ boardTiles.forEach(boardTile => {
             gameBoard.gameBoardArray.push(boardTile.id); // push the tile that user clicked into gameBoardArray
             gameBoard.displayMoves(); // call displayMove function from gameBoard module
             if (boardTile.innerHTML === "X") {
-                playerOne.moves.push(boardTile.id); 
+                playerOne.moves.push(boardTile.id);
+                for (let i = 0; i < winningMoves.length; i++) {
+                    if (playerOne.moves.length === 3 && winningMoves[i] === playerOne.moves.sort().toString().replaceAll(",","") ) {
+                        console.log("Player X wins"); // do stuf here
+                    }
+                    
+                } 
             } else {
-                playerTwo.moves.push(boardTile.id); 
+                playerTwo.moves.push(boardTile.id);
+                for (let i = 0; i < winningMoves.length; i++) {
+                    if (winningMoves[i] === playerTwo.moves.sort().toString().replaceAll(",","")) {
+                        console.log("Player Y wins");
+                    }
+                    
+                }
             }
             //calculateMoves();
         }
