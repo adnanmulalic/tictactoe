@@ -82,6 +82,8 @@ boardTiles.forEach(boardTile => {
                 for (let i = 0; i < winningMoves.length; i++) {
                     if (playerOne.moves.length === 3 && winningMoves[i] === playerOne.moves.sort().toString().replaceAll(",","") ) {
                         console.log("Player X wins"); // do stuf here
+                    } else if(playerOne.moves.length > 3 && winningMoves[i] === playerOne.moves.sort().toString().replaceAll(",","").slice(0,3)) {
+                        console.log("Player X wins");
                     }
                     
                 } 
@@ -90,8 +92,9 @@ boardTiles.forEach(boardTile => {
                 for (let i = 0; i < winningMoves.length; i++) {
                     if (winningMoves[i] === playerTwo.moves.sort().toString().replaceAll(",","")) {
                         console.log("Player Y wins");
+                    } else if(playerTwo.moves.length > 3 && winningMoves[i] === playerTwo.moves.sort().toString().replaceAll(",","").slice(0,3)) {
+                        console.log("Player Y wins");
                     }
-                    
                 }
             }
             //calculateMoves();
