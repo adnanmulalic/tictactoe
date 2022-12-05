@@ -80,24 +80,27 @@ boardTiles.forEach(boardTile => {
             if (boardTile.innerHTML === "X") {
                 playerOne.moves.push(boardTile.id);
                 for (let i = 0; i < winningMoves.length; i++) {
-                    if (playerOne.moves.length === 3 && winningMoves[i] === playerOne.moves.sort().toString().replaceAll(",","") ) {
+                    let playerOneM = playerOne.moves.sort().toString().replaceAll(",","");
+                    if (playerOneM.length === 3 && winningMoves[i] === playerOneM) {
                         console.log("Player X wins"); // do stuf here
-                    } else if(playerOne.moves.length > 3 && winningMoves[i] === playerOne.moves.sort().toString().replaceAll(",","").slice(0,3)) {
+                    } else if(playerOneM.length > 3 && winningMoves[i] === playerOneM.slice(0,3) || winningMoves[i] === playerOneM.slice(1,4) || winningMoves[i] === playerOneM.slice(2,5)) { // this is too long
                         console.log("Player X wins");
-                    }
-                    
+                    } 
                 } 
-            } else {
+            } else if(boardTile.innerHTML === "O"){
                 playerTwo.moves.push(boardTile.id);
                 for (let i = 0; i < winningMoves.length; i++) {
-                    if (winningMoves[i] === playerTwo.moves.sort().toString().replaceAll(",","")) {
+                    let playerTwoM = playerTwo.moves.sort().toString().replaceAll(",","");
+                    if (winningMoves[i] === playerTwoM) {
                         console.log("Player Y wins");
-                    } else if(playerTwo.moves.length > 3 && winningMoves[i] === playerTwo.moves.sort().toString().replaceAll(",","").slice(0,3)) {
+                    } else if(playerTwoM.length > 3 && winningMoves[i] === playerTwoM.slice(0,3) || winningMoves[i] === playerTwoM.slice(1,4)) {
                         console.log("Player Y wins");
                     }
                 }
             }
             //calculateMoves();
+        } else if(gameBoard.gameBoardArray.length === 9) {
+            console.log("Its a tie!");
         }
     })
 });
