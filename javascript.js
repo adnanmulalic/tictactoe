@@ -4,6 +4,7 @@ const restartButton = document.querySelector("#restartButton");
 const playerOneInput = document.querySelector("#playerOne");
 const playerTwoInput = document.querySelector("#playerTwo");
 const playerInputs = document.querySelectorAll("div > input");
+const winnerMessage = document.querySelector("#winnerMessage");
 
 let playerOne = ""
 let playerTwo = ""
@@ -51,14 +52,16 @@ const calculateMoves = (() => {
     });
 });
 
+playerOne = players(playerOneInput.value); // create player object with name and empty array for moves
+playerTwo = players(playerTwoInput.value);
+
 playerInputs.forEach(playerInput => {
     playerInput.addEventListener("keyup", () => {
         gameBoard.gameBoardArray.length = 0; // if user changes player names, reset board and empty gameBoardArray
         boardTiles.forEach(boardTile => {
             boardTile.innerHTML = "";
+            winnerMessage.innerHTML = "";
         })
-        playerOne = players(playerOneInput.value); // create player object with name and empty array for moves
-        playerTwo = players(playerTwoInput.value);
     })
 });
 
@@ -67,6 +70,7 @@ restartButton.addEventListener("click", () => {
     gameBoard.gameBoardArray.length = 0;
     boardTiles.forEach(boardTile => {
         boardTile.innerHTML = "";
+        winnerMessage.innerHTML = "";
     })
     playerOne = players(playerOneInput.value); // create player object with name and empty array for moves
     playerTwo = players(playerTwoInput.value);
@@ -74,7 +78,7 @@ restartButton.addEventListener("click", () => {
 
 boardTiles.forEach(boardTile => {
     boardTile.addEventListener("click", () => { // event listener to track on which tile user clicks
-        if (boardTile.innerHTML === "" && gameBoard.gameBoardArray.length < 9) { // if tile is not empty and gameboard array isnt full of moves (9)
+        if (boardTile.innerHTML === "" && gameBoard.gameBoardArray.length <= 9) { // if tile is not empty and gameboard array isnt full of moves (9)
             gameBoard.gameBoardArray.push(boardTile.id); // push the tile that user clicked into gameBoardArray
             gameBoard.displayMoves(); // call displayMove function from gameBoard module
             if (boardTile.innerHTML === "X") {
@@ -83,8 +87,10 @@ boardTiles.forEach(boardTile => {
                     let playerOneM = playerOne.moves.sort().toString().replaceAll(",","");
                     if (playerOneM.length === 3 && winningMoves[i] === playerOneM) {
                         console.log("Player X wins"); // do stuf here
+                        winnerMessage.innerHTML = "Player X wins";
                     } else if(playerOneM.length > 3 && winningMoves[i] === playerOneM.slice(0,3) || winningMoves[i] === playerOneM.slice(1,4) || winningMoves[i] === playerOneM.slice(2,5)) { // this is too long
                         console.log("Player X wins");
+                        winnerMessage.innerHTML = "Player X wins";
                     } 
                 } 
             } else if(boardTile.innerHTML === "O"){
@@ -92,15 +98,18 @@ boardTiles.forEach(boardTile => {
                 for (let i = 0; i < winningMoves.length; i++) {
                     let playerTwoM = playerTwo.moves.sort().toString().replaceAll(",","");
                     if (winningMoves[i] === playerTwoM) {
-                        console.log("Player Y wins");
+                        console.log("Player O wins");
+                        winnerMessage.innerHTML = "Player O wins";
                     } else if(playerTwoM.length > 3 && winningMoves[i] === playerTwoM.slice(0,3) || winningMoves[i] === playerTwoM.slice(1,4)) {
-                        console.log("Player Y wins");
+                        console.log("Player O wins");
+                        winnerMessage.innerHTML = "Player O wins";
                     }
                 }
             }
-            //calculateMoves();
-        } else if(gameBoard.gameBoardArray.length === 9) {
-            console.log("Its a tie!");
+
+            if (gameBoard.gameBoardArray.length === 9 && winnerMessage.innerHTML === "") {
+                console.log("Its a tie!");
+            }
         }
     })
 });
