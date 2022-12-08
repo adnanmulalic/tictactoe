@@ -78,7 +78,7 @@ restartButton.addEventListener("click", () => {
 
 boardTiles.forEach(boardTile => {
     boardTile.addEventListener("click", () => { // event listener to track on which tile user clicks
-        if (boardTile.innerHTML === "" && gameBoard.gameBoardArray.length <= 9) { // if tile is not empty and gameboard array isnt full of moves (9)
+        if (boardTile.innerHTML === "" && gameBoard.gameBoardArray.length < 9) { // if tile is not empty and gameboard array isnt full of moves (9)
             gameBoard.gameBoardArray.push(boardTile.id); // push the tile that user clicked into gameBoardArray
             gameBoard.displayMoves(); // call displayMove function from gameBoard module
             if (boardTile.innerHTML === "X") {
@@ -88,10 +88,14 @@ boardTiles.forEach(boardTile => {
                     if (playerOneM.length === 3 && winningMoves[i] === playerOneM) {
                         console.log("Player X wins"); // do stuf here
                         winnerMessage.innerHTML = "Player X wins";
-                    } else if(playerOneM.length > 3 && winningMoves[i] === playerOneM.slice(0,3) || winningMoves[i] === playerOneM.slice(1,4) || winningMoves[i] === playerOneM.slice(2,5)) { // this is too long
+                    } else if(playerOneM.length > 3 && winningMoves[i] === playerOneM.slice(0,3) || winningMoves[i] === playerOneM.slice(1,4) || winningMoves[i] === playerOneM.slice(2,5)
+                        || winningMoves[i] === playerOneM.slice(1,3) + playerOneM.slice(4)) { // this is too long
                         console.log("Player X wins");
                         winnerMessage.innerHTML = "Player X wins";
-                    } 
+                    }  else if(playerOneM.length === 4 && winningMoves[i] === playerOneM.slice(0,1) + playerOneM.slice(2,4)){
+                        console.log("Player X wins")
+                        winnerMessage.innerHTML = "Player X wins";
+                    }
                 } 
             } else if(boardTile.innerHTML === "O"){
                 playerTwo.moves.push(boardTile.id);
@@ -100,7 +104,7 @@ boardTiles.forEach(boardTile => {
                     if (winningMoves[i] === playerTwoM) {
                         console.log("Player O wins");
                         winnerMessage.innerHTML = "Player O wins";
-                    } else if(playerTwoM.length > 3 && winningMoves[i] === playerTwoM.slice(0,3) || winningMoves[i] === playerTwoM.slice(1,4)) {
+                    } else if(playerTwoM.length > 3 && winningMoves[i] === playerTwoM.slice(0,3) || winningMoves[i] === playerTwoM.slice(1,4) || winningMoves[i] === playerTwoM.slice(0,2) + playerTwoM.slice(3)) {
                         console.log("Player O wins");
                         winnerMessage.innerHTML = "Player O wins";
                     }
