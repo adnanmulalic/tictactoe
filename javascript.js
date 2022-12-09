@@ -87,14 +87,14 @@ boardTiles.forEach(boardTile => {
                     let playerOneM = playerOne.moves.sort().toString().replaceAll(",","");
                     if (playerOneM.length === 3 && winningMoves[i] === playerOneM) {
                         console.log("Player X wins"); // do stuf here
-                        winnerMessage.innerHTML = "Player X wins";
+                        winnerMessage.innerHTML = "Player X wins!";
                     } else if(playerOneM.length > 3 && winningMoves[i] === playerOneM.slice(0,3) || winningMoves[i] === playerOneM.slice(1,4) || winningMoves[i] === playerOneM.slice(2,5)
                         || winningMoves[i] === playerOneM.slice(1,3) + playerOneM.slice(4)) { // this is too long
                         console.log("Player X wins");
-                        winnerMessage.innerHTML = "Player X wins";
+                        winnerMessage.innerHTML = "Player X wins!";
                     }  else if(playerOneM.length === 4 && winningMoves[i] === playerOneM.slice(0,1) + playerOneM.slice(2,4)){
                         console.log("Player X wins")
-                        winnerMessage.innerHTML = "Player X wins";
+                        winnerMessage.innerHTML = "Player X wins!";
                     }
                 } 
             } else if(boardTile.innerHTML === "O"){
@@ -102,17 +102,18 @@ boardTiles.forEach(boardTile => {
                 for (let i = 0; i < winningMoves.length; i++) {
                     let playerTwoM = playerTwo.moves.sort().toString().replaceAll(",","");
                     if (winningMoves[i] === playerTwoM) {
-                        console.log("Player O wins");
-                        winnerMessage.innerHTML = "Player O wins";
+                        console.log("Player O wins!");
+                        winnerMessage.innerHTML = "Player O wins!";
                     } else if(playerTwoM.length > 3 && winningMoves[i] === playerTwoM.slice(0,3) || winningMoves[i] === playerTwoM.slice(1,4) || winningMoves[i] === playerTwoM.slice(0,2) + playerTwoM.slice(3)) {
                         console.log("Player O wins");
-                        winnerMessage.innerHTML = "Player O wins";
+                        winnerMessage.innerHTML = "Player O wins!";
                     }
                 }
             }
 
             if (gameBoard.gameBoardArray.length === 9 && winnerMessage.innerHTML === "") {
                 console.log("Its a tie!");
+                winnerMessage.innerHTML = "Its a tie!";
             }
         }
     })
